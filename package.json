@@ -5,7 +5,7 @@
   "main": "FileHelper.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "build": "node_modules/.bin/uglifyjs FileHelper.js --mangle --comments /@source/ > FileHelper.min.js"
+    "build": "uglifyjs FileHelper.js --mangle --comments /@source/ > FileHelper.min.js"
   },
   "repository": {
     "type": "git",
