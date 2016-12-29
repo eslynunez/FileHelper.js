@@ -3,7 +3,6 @@
 *   FileHelper.js
 *   Author: MobileSmith - Esly Nunez
 *   Description: Create, save, and update files from the frontend.
-*   
 *
 */
 

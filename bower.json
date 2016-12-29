@@ -1,13 +1,15 @@
 {
-  "name": "file-saver",
-  "main": "FileSaver.js",
+  "name": "file-helper",
+  "main": "FileHelper.js",
   "version": "1.3.3",
-  "homepage": "https://github.com/eligrey/FileSaver.js",
+  "homepage": "https://github.com/eslynunez/FileHelper.js",
   "authors": [
-    "Eli Grey <me@eligrey.com>"
+    "Eli Grey <me@eligrey.com>",
+    "Esly Nunez <ennunezc@gmail.com>"
   ],
-  "description": "An HTML5 saveAs() FileSaver implementation",
+  "description": "Create, save, and update files from the frontend",
   "keywords": [
+    "filehelper",
     "filesaver",
     "saveas",
     "blob"
@@ -15,7 +17,7 @@
   "license": "MIT",
   "ignore": [
       "*",
-      "!FileSaver.*js",
+      "!FileHelper.*js",
       "!LICENSE.md"
   ]
 }

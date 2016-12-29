@@ -3,14 +3,14 @@ enough RAM, then have a look at the more advanced [StreamSaver.js](https://githu
 that can save data directly to the hard drive asynchronously with the power of the new streams API. That will have
 support for progress, cancelation and knowing when it's done writing
 
-FileSaver.js
+FileHelper.js
 ============
 
-FileSaver.js implements the `saveAs()` FileSaver interface in browsers that do
-not natively support it. There is a [FileSaver.js demo][1] that demonstrates saving
+FileHelper.js implements the `saveAs()` FileSaver interface in browsers that do
+not natively support it. There is a [FileHelper.js demo][1] that demonstrates saving
 various media types.
 
-FileSaver.js is the solution to saving files on the client-side, and is perfect for
+FileHelper.js is the solution to saving files on the client-side, and is perfect for
 webapps that need to generate files, or for saving sensitive information that shouldn't be
 sent to an external server.
 
@@ -44,12 +44,12 @@ try {
 ### IE < 10
 
 It is possible to save text files in IE < 10 without Flash-based polyfills.
-See [ChenWenBrian and koffsyrup's `saveTextAs()`](https://github.com/koffsyrup/FileSaver.js#examples) for more details.
+See [ChenWenBrian and koffsyrup's `saveTextAs()`](https://github.com/koffsyrup/FileHelper.js#examples) for more details.
 
 ### Safari 6.1+
 
 Blobs may be opened instead of saved sometimes—you may have to direct your Safari users to manually
-press <kbd>⌘</kbd>+<kbd>S</kbd> to save the file after it is opened. Using the `application/octet-stream` MIME type to force downloads [can cause issues in Safari](https://github.com/eligrey/FileSaver.js/issues/12#issuecomment-47247096).
+press <kbd>⌘</kbd>+<kbd>S</kbd> to save the file after it is opened. Using the `application/octet-stream` MIME type to force downloads [can cause issues in Safari](https://github.com/eligrey/FileHelper.js/issues/12#issuecomment-47247096).
 
 ### iOS
 
@@ -62,7 +62,7 @@ Syntax
 FileSaver saveAs(Blob/File data, optional DOMString filename, optional Boolean disableAutoBOM)
 ```
 
-Pass `true` for `disableAutoBOM` if you don't want FileSaver.js to automatically provide Unicode text encoding hints (see: [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark)).
+Pass `true` for `disableAutoBOM` if you don't want FileHelper.js to automatically provide Unicode text encoding hints (see: [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark)).
 
 Examples
 --------
@@ -113,7 +113,7 @@ saveAs(file);
 
 ![Tracking image](https://in.getclicky.com/212712ns.gif)
 
-  [1]: http://eligrey.com/demos/FileSaver.js/
+  [1]: http://eligrey.com/demos/FileHelper.js/
   [2]: https://github.com/eligrey/canvas-toBlob.js
   [3]: https://code.google.com/p/chromium/issues/detail?id=375297
   [4]: https://developer.mozilla.org/en-US/docs/DOM/Blob
@@ -123,10 +123,10 @@ saveAs(file);
 Contributing
 ------------
 
-The `FileSaver.js` distribution file is compiled with Uglify.js like so:
+The `FileHelper.js` distribution file is compiled with Uglify.js like so:
 
 ```bash
-uglifyjs FileSaver.js --mangle --comments /@source/ > FileSaver.min.js
+uglifyjs FileHelper.js --mangle --comments /@source/ > FileSaver.min.js
 # or simply:
 npm run build
 ```
