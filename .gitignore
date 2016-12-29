@@ -17,3 +17,4 @@ atlassian-ide-plugin.xml
 out
 gen
 FileHelper.js.iml
+node_modules
