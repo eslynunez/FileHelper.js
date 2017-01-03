@@ -6,7 +6,9 @@
 *
 */
 
-var saveAs = saveAs || (function(view) {
+var fileHelper = {};
+
+    fileHelper.saveAs = (function(view) {
 	"use strict";
 	// IE <10 is explicitly unsupported
 	if(typeof view === "undefined" || typeof navigator !== "undefined" && /MSIE [1-9]\./.test(navigator.userAgent)) {
@@ -160,18 +162,53 @@ var saveAs = saveAs || (function(view) {
 
 	return saveAs;
 }(
-	   typeof self !== "undefined" && self
-	|| typeof window !== "undefined" && window
-	|| this.content
-));
+    typeof self !== "undefined" && self || typeof window !== "undefined" && window || this.content));
+
+    /**
+     *
+     * @param obj
+     * @param fileName
+     * @param extension
+     * @returns {boolean}
+     */
+    fileHelper.generateJSONFile = function(obj,fileName, extension) {
+        var json = JSON.stringify(obj);
+        var blob = new Blob([json], {type: "text/plain;charset=utf-8"});
+
+        saveAs(blob,fileName+'.'+extension);
+        return true;
+    };
+
+    /**
+     * readUploadedJSONFile
+     * $elmId: element Id as a string
+     * callback: function to pass the JSON file data.
+     * Description: Get JSON data from uploaded file.
+     * @param $elmId
+     * @param callback
+     */
+    fileHelper.readUploadedJSONFile = function($elmId, callback){
+		var reader = new FileReader();
+
+		reader.onload = function (event) {
+		    console.log(event);
+			var obj = JSON.parse(event.target.result);
+
+			callback(obj);
+		};
+
+		// Index will always be zero if input only allows single upload.
+		reader.readAsText(event.target.files[0]);
+    };
+
 // `self` is undefined in Firefox for Android content script context
 // while `this` is nsIContentFrameMessageManager
 // with an attribute `content` that corresponds to the window
 
 if(typeof module !== "undefined" && module.exports){
-  module.exports.saveAs = saveAs;
+  module.exports.fileHelper = fileHelper;
 } else if((typeof define !== "undefined" && define !== null) && (define.amd !== null)) {
-  define("FileSaver.js", function() {
+  define("FileHelper.js", function() {
     return saveAs;
   });
 }
