@@ -172,22 +172,22 @@ var fileHelper = {};
      * @returns {boolean}
      */
     fileHelper.generateJSONFile = function(obj,fileName, extension) {
-        var json = JSON.stringify(obj);
-        var blob = new Blob([json], {type: "text/plain;charset=utf-8"});
+        var data = JSON.stringify(obj);
+        var blob = new Blob([data], {type: "text/plain;charset=utf-8"});
 
-        saveAs(blob,fileName+'.'+extension);
+        this.saveAs(blob,fileName+'.'+extension);
         return true;
     };
 
     /**
      * readUploadedJSONFile
-     * $elmId: element Id as a string
+     * Id: element Id as a string
      * callback: function to pass the JSON file data.
      * Description: Get JSON data from uploaded file.
-     * @param $elmId
+     * @param id
      * @param callback
      */
-    fileHelper.readUploadedJSONFile = function($elmId, callback){
+    fileHelper.readUploadedJSONFile = function(id, callback){
 		var reader = new FileReader();
 
 		reader.onload = function (event) {

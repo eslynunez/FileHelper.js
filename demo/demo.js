@@ -39,6 +39,10 @@ var
 	, html_options_form = $("html-options")
 	, html_filename = $("html-filename")
 
+	, reader = $("reader")
+	, reader_options =  $("reader-options")
+	, reader_input = $("reader-file")
+
 	, ctx = canvas.getContext("2d")
 	, drawing = false
 	, x_points = session.x_points || []
@@ -116,6 +120,13 @@ var
 		return doc;
 	}
 ;
+reader_input.addEventListener("change", function(event){
+	fileHelper.readUploadedJSONFile(event.target.id, function(obj){
+		var targ = event.target || event.srcElement;
+		reader.value += JSON.stringify(obj);
+	})
+}, false);
+
 canvas.width = 500;
 canvas.height = 300;
 
@@ -166,7 +177,7 @@ canvas.addEventListener("mouseout", stop_drawing, false);
 canvas_options_form.addEventListener("submit", function(event) {
 	event.preventDefault();
 	canvas.toBlobHD(function(blob) {
-		saveAs(
+		fileHelper.saveAs(
 			  blob
 			, (canvas_filename.value || canvas_filename.placeholder) + ".png"
 		);
@@ -176,7 +187,7 @@ canvas_options_form.addEventListener("submit", function(event) {
 text_options_form.addEventListener("submit", function(event) {
 	event.preventDefault();
 	var BB = get_blob();
-	saveAs(
+	fileHelper.saveAs(
 		  new BB(
 			  [text.value || text.placeholder]
 			, {type: "text/plain;charset=" + document.characterSet}
@@ -192,7 +203,7 @@ html_options_form.addEventListener("submit", function(event) {
 		, xml_serializer = new XMLSerializer()
 		, doc = create_html_doc(html)
 	;
-	saveAs(
+	fileHelper.saveAs(
 		  new BB(
 			  [xml_serializer.serializeToString(doc)]
 			, {type: "text/plain;charset=" + document.characterSet}
