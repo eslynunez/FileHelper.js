@@ -39,9 +39,32 @@ var
 	, html_options_form = $("html-options")
 	, html_filename = $("html-filename")
 
-	, reader = $("reader")
-	, reader_options =  $("reader-options")
-	, reader_input = $("reader-file")
+	, reader = $("json-reader")
+	, reader_options = $("json-reader-options")
+	, reader_input = $("json-reader-file")
+
+    , dummy_demo_json = {
+        "array": [
+            1,
+            2,
+            3
+        ],
+        "boolean": true,
+        "null": null,
+        "number": 123,
+        "object": {
+            "a": "b",
+            "c": "d",
+            "e": "f"
+        },
+        "string": "Hello World"
+    }
+
+	, j_saver = $("json-saver")
+	, j_saver_options = $('json-saver-options')
+    , j_saver_fileName = $('json-saver-file').value
+    , j_saver_val = $('json-saver-text')
+    , j_saver_save = $('json-saver')
 
 	, ctx = canvas.getContext("2d")
 	, drawing = false
@@ -120,12 +143,24 @@ var
 		return doc;
 	}
 ;
+
+
+j_saver_val.value = JSON.stringify(dummy_demo_json);
+
+j_saver_save.addEventListener("click", function(event){
+   var json_str = j_saver_val.value;
+   fileHelper.saveAsJSON(json_str, j_saver_fileName,'.json');
+
+});
+
 reader_input.addEventListener("change", function(event){
-	fileHelper.readUploadedJSONFile(event.target.id, function(obj){
-		var targ = event.target || event.srcElement;
-		reader.value += JSON.stringify(obj);
+	reader.value="";
+	fileHelper.readJSONFile(event.target.id, function(obj){
+		reader.value += JSON.stringify(obj.content);
 	})
 }, false);
+
+
 
 canvas.width = 500;
 canvas.height = 300;

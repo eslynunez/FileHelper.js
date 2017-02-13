@@ -7,7 +7,10 @@
 */
 
 var fileHelper = {};
-
+    /** Start FileHelper: Create **/
+    /**
+    *
+     */
     fileHelper.saveAs = (function(view) {
 	"use strict";
 	// IE <10 is explicitly unsupported
@@ -166,47 +169,88 @@ var fileHelper = {};
 
     /**
      *
-     * @param obj
-     * @param fileName
-     * @param extension
+     * @param {string} textObj
+     * @param {string} fileName
+     * @param {string} extension
      * @returns {boolean}
      */
-    fileHelper.generateJSONFile = function(obj,fileName, extension) {
-        var data = JSON.stringify(obj);
-        var blob = new Blob([data], {type: "text/plain;charset=utf-8"});
+    fileHelper.saveAsJSON = function(textObj,fileName, extension) {
+
+
+
+        var data = JSON.parse(textObj),
+            blob = new Blob([data], {type: "text/plain;charset=utf-8"});
 
         this.saveAs(blob,fileName+'.'+extension);
         return true;
     };
 
     /**
-     * readUploadedJSONFile
-     * Id: element Id as a string
+     * id: element Id as a string
      * callback: function to pass the JSON file data.
-     * Description: Get JSON data from uploaded file.
-     * @param id
-     * @param callback
+     * @description Get JSON data from uploaded file.
+     * @param {string} elmId
+     * @param {function} cb
      */
-    fileHelper.readUploadedJSONFile = function(id, callback){
-		var reader = new FileReader();
+    fileHelper.readJSONFile = function(elmId, cb){
+		var reader = new FileReader(),
+            json_obj;
 
-		reader.onload = function (event) {
-		    console.log(event);
-			var obj = JSON.parse(event.target.result);
+		reader.onload = function(event) {
 
-			callback(obj);
+		    var file = {};
+
+            try {
+                json_obj = JSON.parse(event.target.result);
+            } catch (e) {
+                throw new Exception('InvalidFileType','Invalid JSON File Uploaded');
+            }
+
+            file.srcElm = elmId;
+            file.content =  json_obj;
+
+            return cb(file);
 		};
 
 		// Index will always be zero if input only allows single upload.
 		reader.readAsText(event.target.files[0]);
     };
 
+    /**
+    *
+    * @param {string} elmId
+    * @param {string} cb
+    */
+    fileHelper.readTextFile = function(elmId, cb){
+        var reader = new FileReader(),
+            file = {};
+
+        reader.onload = function(event) {
+
+            file.srcElm = elmId;
+            file.content = event.target.result;
+            return cb(file);
+        };
+        reader.readAsText(event.target.files[0]);
+    };
+    /**
+     * name: Type of exception that occurred. InvalidFileType, InvalidDataType
+     * message: A short helpful message.
+     * @description:  Exception base function.
+     * @param {string} type
+     * @param {string} message
+    */
+    function Exception(type,message){
+        this.type = type;
+        this.message = message;
+    }
+
 // `self` is undefined in Firefox for Android content script context
 // while `this` is nsIContentFrameMessageManager
 // with an attribute `content` that corresponds to the window
 
 if(typeof module !== "undefined" && module.exports){
-  module.exports.fileHelper = fileHelper;
+  module.exports.fileHelper.saveAs = fileHelper.saveAs;
 } else if((typeof define !== "undefined" && define !== null) && (define.amd !== null)) {
   define("FileHelper.js", function() {
     return saveAs;

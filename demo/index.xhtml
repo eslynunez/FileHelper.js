@@ -49,18 +49,27 @@
             <input type="submit" value="Save"/>
         </form>
     </section>
-    <section id="reader-demo">
-        <h2>Read text from files</h2>
-        <form id="reader-options">
-            <label>Filename: <input type="file" class="filename" id="reader-file"/></label>
+    <section id="json-saver-demo">
+        <h2>Saving JSON</h2>
+        <textarea class="input" id="json-saver-text" placeholder=""/>
+        <form id="json-saver-options">
+            <label>Filename: <input type="text" class="filename" id="json-saver-file" placeholder="a json document" value="SaveJson"/>.json</label>
+            <input type="submit" id="json-saver" value="Save"/>
         </form>
-        <textarea class="input read" id="reader" readonly="">
-        </textarea>
     </section>
+    <section id="json-reader-demo">
+        <h2>Read JSON from file</h2>
+        <form id="json-reader-options">
+            <label>Filename: <input type="file" class="filename" id="json-reader-file"/></label>
+        </form>
+        <textarea class="input read" id="json-reader" readonly=""></textarea>
+    </section>
+
+
     <script async="" src="https://cdn.rawgit.com/eligrey/Blob.js/0cef2746414269b16834878a8abc52eb9d53e6bd/Blob.js"/>
     <script async="" src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"/>
     <!--<script src="../FileHelper.min.js"></script>-->
-    <script src="../FileHelper.min.js"></script>
+    <script src="../FileHelper.js"></script>
     <script src="demo.js"></script>
 </body>
 </html>
